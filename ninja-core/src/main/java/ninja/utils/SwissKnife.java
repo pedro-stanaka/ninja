@@ -19,6 +19,9 @@ package ninja.utils;
 import com.google.common.primitives.Primitives;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +29,7 @@ import com.google.common.base.CaseFormat;
 import java.lang.reflect.InvocationTargetException;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -201,6 +205,16 @@ public class SwissKnife {
 
         public static Short toShort(String value) {
             return Short.valueOf(value);
+        }
+
+        public static Date toDate(String value){
+            if(value != null && value.length() > 0){
+                LocalDateTime localDate = new LocalDateTime(value);
+                Date date = new java.sql.Date(localDate.toDate().getTime());
+                return date;
+            }else{
+                return null;
+            }
         }
 
         public static Character toCharacter(String value) {
